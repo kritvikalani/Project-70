@@ -1,14 +1,35 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, TextInput, Image, StyleSheet} from 'react-native';
 import {Header} from 'react-native-elements';
+import db from '../config'
+import firebase from 'firebase'
 
 export default class WriteStoryScreen extends React.Component {
     constructor(){
         super();
         this.state = {
-            text: ''
+            text: '',
+            title: '',
+            author: '',
+            story: ''
         }
     }
+    submitStory = async () =>{
+    var titleRef = await db.collection("title").where("name", "==", this.state.title).get()
+    titleRef.docs.map((doc)=>{
+        var title = doc.data()
+    })
+
+    var authorRef = await db.collection("author").where("name", "==", this.state.author).get()
+    authorRef.docs.map((doc)=>{
+        var author = doc.data()
+    })
+
+    var storyRef = await db.collection("story").where("story", "==", this.state.title).get()
+    storyRef.docs.map((doc)=>{
+        var story = doc.data()
+    })
+}
     render(){
         return(
             <View>
@@ -43,6 +64,7 @@ export default class WriteStoryScreen extends React.Component {
            <View>
                <TouchableOpacity>
                style={styles.submitButton}
+               onPress = {this.submitStory}
           <Text style={styles.submitButtonText}>Submit</Text>
                </TouchableOpacity>
            </View>
