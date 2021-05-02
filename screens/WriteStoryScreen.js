@@ -15,20 +15,20 @@ export default class WriteStoryScreen extends React.Component {
         }
     }
     submitStory = async () =>{
-    var titleRef = await db.collection("title").where("name", "==", this.state.title).get()
-    titleRef.docs.map((doc)=>{
+    var titleRef = await db.collection("title").where({'name': this.state.title})
+    /*titleRef.docs.map((doc)=>{
         var title = doc.data()
-    })
+    })*/
 
-    var authorRef = await db.collection("author").where("name", "==", this.state.author).get()
-    authorRef.docs.map((doc)=>{
+    var authorRef = await db.collection("author").where({'name': this.state.author})
+    /*authorRef.docs.map((doc)=>{
         var author = doc.data()
-    })
+    })*/
 
-    var storyRef = await db.collection("story").where("story", "==", this.state.title).get()
-    storyRef.docs.map((doc)=>{
+    var storyRef = await db.collection("story").add({'story': this.state.story})
+    /*storyRef.docs.map((doc)=>{
         var story = doc.data()
-    })
+    })*/
 }
     render(){
         return(
